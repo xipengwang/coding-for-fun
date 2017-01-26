@@ -58,7 +58,7 @@ void APPEND(add_node)(TTYPENAME_T *root, TVALTYPE *data)
                 new_node->left_child = NULL;
                 new_node->right_child = NULL;
                 new_node->comp = NULL;
-                new_node->cnt = 0;
+                new_node->cnt = 1;
                 node->left_child = new_node;
                 return;
             }
@@ -74,7 +74,7 @@ void APPEND(add_node)(TTYPENAME_T *root, TVALTYPE *data)
                 new_node->left_child = NULL;
                 new_node->right_child = NULL;
                 new_node->comp = NULL;
-                new_node->cnt = 0;
+                new_node->cnt = 1;
                 node->right_child = new_node;
                 return;
             }
@@ -98,32 +98,16 @@ int APPEND(find_node)(TTYPENAME_T *root, TVALTYPE *data){
     return 0;
 }
 
-
-//user need to release return data memory
-int APPEND(remove_node)(TTYPENAME_T *root, TVALTYPE *data){
-    TTYPENAME_T *node = root;
-    while(node != NULL) {
-        if(root->comp(node->data, data) == 0) {
-            free(node->data);
-            free(node);
-            node = NULL;
-            return 1;
-        } else if(root->comp(node->data, data) > 0) {
-            node = node->left_child;
-        } else { //go right
-            node = node->right_child;
-        }
-    }
-    return 0;
-}
-
 void APPEND(destroy_tree)(TTYPENAME_T *root){
     if(root == NULL)
         return;
     APPEND(destroy_tree)(root->left_child);
+    printf("%d,",*(root->data));
     APPEND(destroy_tree)(root->right_child);
     free(root->data);
+    //root->left_child = NULL;
+    //root->right_child = NULL;
+    //root->data = NULL;
     free(root);
-    root = NULL;
     return;
 }

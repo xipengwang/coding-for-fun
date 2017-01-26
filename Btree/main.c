@@ -26,7 +26,7 @@ static int icomp(void *a, void *b)
 int main(int argc, char** argv)
 {
     //int i_v[] = {1,4,7,3,2,1,5,6,8};
-    int i_v[] = {1,4,8};
+    int i_v[] = {2,1,5,7};
     int n = sizeof(i_v)/sizeof(int);
     ibtree_t *ibtree = ibtree_create(icomp);
     for(int i=0; i<n; i++) {
@@ -36,7 +36,10 @@ int main(int argc, char** argv)
     if(ibtree_find_node(ibtree, &v))
         printf("Yes\n");
     else
-        puts("No!\n");
-    ibtree_destroy_tree(ibtree);
+        printf("No!\n");
+    //ibtree_destroy_tree(ibtree);
+    free(ibtree->left_child->data);
+    free(ibtree->left_child);
+    printf("\n");
     return 0;
 }
