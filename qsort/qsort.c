@@ -44,7 +44,7 @@ void g_qsort(void *v, int left, int right, size_t size, int (*comp)(void*, void*
         return;
     int last = left;
     for(int i=left+1; i<=right; i++) {
-        if(comp((char*)v+i*size,(char*)v+left*size)==-1) {
+        if(comp((char*)v+i*size,(char*)v+left*size)<0) {
             g_swap(v,i,++last,size);
         }
     }
@@ -65,6 +65,14 @@ static int icomp(void *a, void *b)
         return 1;
 }
 
+static int scomp(void *a, void *b)
+{
+    char **a_s = (char**)a;
+    char **b_s = (char**)b;
+    //printf("%s:\n", *a_s,*b_s);
+    return strcmp(*a_s, *b_s);
+}
+
 int main(int argc, char** argv)
 {
     int v[] = {1,4,3,2,5};
@@ -73,7 +81,21 @@ int main(int argc, char** argv)
     //iqsort(v, 0, n-1);
     g_qsort(v, 0, n-1, sizeof(int), icomp);
     for(int i=0; i<n; i++){
-        printf("Array:%d \n", v[i]);
+        printf("Int Array:%d \n", v[i]);
+    }
+
+    char *s[] = {
+        "Hello_World",
+        "Hello_UofM",
+        "b",
+        "a",
+        "c",
+        "d"
+    };
+    n = sizeof(s)/sizeof(char*);
+    g_qsort(s, 0, n-1, sizeof(char*), scomp);
+    for(int i=0; i<n; i++){
+        printf("String Array:%s \n", s[i]);
     }
     printf(("\n"));
     return 0;
