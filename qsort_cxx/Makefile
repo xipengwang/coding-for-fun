@@ -1,12 +1,12 @@
 .SUFFIXES:
 .SUFFIXES:	.cc .o .h
 
-export CFLAGS_STD := -std=c++11 -g -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE \
+export CFLAGS := -std=c++11 -g -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE \
 		-D_REENTRANT -Wall -Wno-unused-parameter -Wno-unused-variable \
 		-Wno-format-zero-length -pthread -fPIC -Werror \
 		-Wredundant-decls \
 		-I.
-export LDFLAGS_STD := -lpthread
+export LDFLAGS := -lpthread
 
 MAKE := $(MAKE) --no-print-directory
 
