@@ -14,7 +14,7 @@ CC = echo "$@" && clang
 LD = echo "[$(notdir $@)]" && clang
 AR = echo "[$(notdir $@)]" && ar
 
-BIN_PATH = /home/april/C/bin
+BIN_PATH = /home/april/c_cxx/bin
 SRCS = $(shell ls *.c)
 OBJS = $(SRCS:%.c=%.o)
 TARGET = $(BIN_PATH)/qsort

@@ -44,7 +44,7 @@ void g_qsort(void *v, int left, int right, size_t size, int (*comp)(void*, void*
         return;
     int last = left;
     for(int i=left+1; i<=right; i++) {
-        if(comp((char*)v+i*size,(char*)v+i*size)==-1) {
+        if(comp((char*)v+i*size,(char*)v+left*size)==-1) {
             g_swap(v,i,++last,size);
         }
     }
@@ -67,10 +67,10 @@ static int icomp(void *a, void *b)
 
 int main(int argc, char** argv)
 {
-    int v[] = {1,2,3,4,5};
+    int v[] = {1,4,3,2,5};
     int n = sizeof(v)/sizeof(int);
     printf("Array size:%d \n", n);
-    iqsort(v, 0, n-1);
+    //iqsort(v, 0, n-1);
     g_qsort(v, 0, n-1, sizeof(int), icomp);
     for(int i=0; i<n; i++){
         printf("Array:%d \n", v[i]);
