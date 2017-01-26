@@ -4,6 +4,12 @@
 #include <assert.h>
 #include <string.h>
 
+struct person {
+    char* name;
+    int ID;
+};
+typedef struct person person_t;
+
 void iswap(int v[], int a, int b)
 {
     int tmp = 0;
@@ -73,6 +79,18 @@ static int scomp(void *a, void *b)
     return strcmp(*a_s, *b_s);
 }
 
+static int person_comp(void *a, void *b)
+{
+    person_t *a_p = (person_t*)a;
+    person_t *b_p = (person_t*)b;
+    if(a_p->ID == b_p->ID)
+        return 0;
+    else if(a_p->ID < b_p->ID)
+        return -1;
+    else
+        return 1;
+}
+
 int main(int argc, char** argv)
 {
     int v[] = {1,4,3,2,5};
@@ -83,6 +101,7 @@ int main(int argc, char** argv)
     for(int i=0; i<n; i++){
         printf("Int Array:%d \n", v[i]);
     }
+    printf(("\n"));
 
     char *s[] = {
         "Hello_World",
@@ -96,6 +115,18 @@ int main(int argc, char** argv)
     g_qsort(s, 0, n-1, sizeof(char*), scomp);
     for(int i=0; i<n; i++){
         printf("String Array:%s \n", s[i]);
+    }
+    printf(("\n"));
+
+    person_t persons[3]={
+        {"Jonh", 3},
+        {"Mary", 2},
+        {"Ryan", 1}
+    };
+    n = sizeof(persons)/sizeof(person_t);
+    g_qsort(persons, 0, n-1, sizeof(person_t), person_comp);
+    for(int i=0; i<n; i++){
+        printf("Person Array:%s: %d \n", persons[i].name, persons[i].ID);
     }
     printf(("\n"));
     return 0;
