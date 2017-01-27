@@ -46,6 +46,7 @@ void APPEND(add_node)(TTYPENAME_T *root, TVALTYPE *data)
     if(root->data == NULL) {
         root->data = calloc(1, sizeof(TVALTYPE));
         memcpy(root->data, data, sizeof(TVALTYPE));
+        root->cnt = 1;
         return;
     }
     TTYPENAME_T *node = root;

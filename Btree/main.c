@@ -11,6 +11,12 @@
 #include "btree_impl.h"
 #undef TNAME
 #undef TVALTYPE
+
+#define TNAME sbtree
+#define TVALTYPE char*
+#include "btree_impl.h"
+#undef TNAME
+#undef TVALTYPE
 static int icomp(int *a, int *b)
 {
     int a_v = *(a);
@@ -26,6 +32,17 @@ static int icomp(int *a, int *b)
 static void iprint(ibtree_t* node)
 {
     printf("val:%d,cnt:%d\n", *(node->data), node->cnt);
+}
+
+
+static int scomp(char **a, char **b)
+{
+    return strcmp(*a,*b);
+}
+
+static void sprint(sbtree_t* node)
+{
+    printf("val:%s,cnt:%d\n", *(node->data), node->cnt);
 }
 
 int main(int argc, char** argv)
@@ -50,6 +67,29 @@ int main(int argc, char** argv)
         /* after free it. So a good practice is to set freed pointer to be NULL */
         /************************************************************************/
         ibtree = NULL;
+    }
+
+    {
+        char* s_v[] = {
+            "a",
+            "c",
+            "b",
+            "d"
+        };
+        int n = sizeof(s_v)/sizeof(char*);
+        sbtree_t *sbtree = sbtree_create(scomp);
+        for(int i=0; i<n; i++) {
+            sbtree_add_node(sbtree, &s_v[i]);
+        }
+        char *v = "a";
+        sbtree_t* node = sbtree_find_node(sbtree, &v) ;
+        if(node != NULL)
+            printf("Cnt:%d\n", node->cnt);
+        else
+            printf("No!\n");
+        sbtree_print_tree(sbtree, sprint);
+        sbtree_destroy_tree(sbtree);
+        sbtree = NULL;
     }
 
     return 0;
