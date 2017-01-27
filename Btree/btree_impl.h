@@ -27,11 +27,11 @@ struct TNAME
     TVALTYPE *data;
     TTYPENAME_T *left_child;
     TTYPENAME_T *right_child;
-    int (*comp)(void*, void*);
+    int (*comp)(TVALTYPE*, TVALTYPE*);
     int cnt;
 };
 
-TTYPENAME_T* APPEND(create)(int (*comp)(void*, void*)){
+TTYPENAME_T* APPEND(create)(int (*comp)(TVALTYPE*, TVALTYPE*)){
     TTYPENAME_T* root = calloc(1, sizeof(TTYPENAME_T));
     root->data = NULL;
     root->left_child = NULL;
@@ -84,30 +84,37 @@ void APPEND(add_node)(TTYPENAME_T *root, TVALTYPE *data)
 
 }
 
-int APPEND(find_node)(TTYPENAME_T *root, TVALTYPE *data){
+TTYPENAME_T *APPEND(find_node)(TTYPENAME_T *root, TVALTYPE *data){
     TTYPENAME_T *node = root;
     while(node != NULL) {
         if(root->comp(node->data, data) == 0) {
-            return 1;
+            return node;
         } else if(root->comp(node->data, data) > 0) {
             node = node->left_child;
         } else { //go right
             node = node->right_child;
         }
     }
-    return 0;
+    return NULL;
+}
+
+void APPEND(print_tree)(TTYPENAME_T *root, void (*p)(TTYPENAME_T*)){
+
+    if(root == NULL)
+        return;
+    APPEND(print_tree)(root->left_child, p);
+    p(root);
+    APPEND(print_tree)(root->right_child, p);
+    return;
 }
 
 void APPEND(destroy_tree)(TTYPENAME_T *root){
+
     if(root == NULL)
         return;
     APPEND(destroy_tree)(root->left_child);
-    printf("%d,",*(root->data));
     APPEND(destroy_tree)(root->right_child);
     free(root->data);
-    //root->left_child = NULL;
-    //root->right_child = NULL;
-    //root->data = NULL;
     free(root);
     return;
 }
