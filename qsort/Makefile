@@ -17,7 +17,7 @@ AR = echo "[$(notdir $@)]" && ar
 BIN_PATH = /home/april/c_cxx/bin
 SRCS = $(shell ls *.c)
 OBJS = $(SRCS:%.c=%.o)
-TARGET = $(BIN_PATH)/btree
+TARGET = $(BIN_PATH)/mysort
 
 all: $(TARGET)
 	@/bin/true
