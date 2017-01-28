@@ -46,7 +46,7 @@ int main(int argc, char** argv)
     int v[] = {1,4,3,2,5};
     int n = sizeof(v)/sizeof(int);
     printf("Array size:%d \n", n);
-    SORT(v, 0, n-1, sizeof(int), icomp);
+    SORT(v, n, sizeof(int), icomp);
     for(int i=0; i<n; i++){
         printf("Int Array:%d \n", v[i]);
     }
@@ -61,7 +61,7 @@ int main(int argc, char** argv)
         "d"
     };
     n = sizeof(s)/sizeof(char*);
-    SORT(s, 0, n-1, sizeof(char*), scomp);
+    SORT(s, n, sizeof(char*), scomp);
     for(int i=0; i<n; i++){
         printf("String Array:%s \n", s[i]);
     }
@@ -73,7 +73,7 @@ int main(int argc, char** argv)
         {"Ryan", 1}
     };
     n = sizeof(persons)/sizeof(person_t);
-    SORT(persons, 0, n-1, sizeof(person_t), person_comp);
+    SORT(persons, n, sizeof(person_t), person_comp);
     for(int i=0; i<n; i++){
         printf("Person Array:%s: %d \n", persons[i].name, persons[i].ID);
     }
