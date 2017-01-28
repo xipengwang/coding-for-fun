@@ -19,6 +19,7 @@ extern "C" {
 
     void g_swap(void *v, int a, int b, size_t size);
     void g_qsort(void *v, int left, int right, size_t size, int (*comp)(void*, void*));
+    void g_shell_sort(void *v, int n, size_t size, int (*comp)(void*, void*));
 
 #ifdef __cplusplus
 }

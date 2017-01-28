@@ -16,7 +16,7 @@ void g_qsort(void *v, int left, int right, size_t size, int (*comp)(void*, void*
     if(left >= right)
         return;
     int last = left;
-    for(int i=left+1; i<=right; i++) {
+    for(int i = left + 1; i <= right; i++) {
         if(comp((char*)v+i*size,(char*)v+left*size)<0) {
             g_swap(v,i,++last,size);
         }
@@ -24,4 +24,17 @@ void g_qsort(void *v, int left, int right, size_t size, int (*comp)(void*, void*
     g_swap(v, left, last, size);
     g_qsort(v, left, last-1, size, comp);
     g_qsort(v, last+1, right, size, comp);
+}
+
+void g_shell_sort(void *v, int n, size_t size, int (*comp)(void*, void*))
+{
+    for(int gap = n; gap > 0; gap /= 2) {
+        for(int i = gap; i <= n; i += gap) {
+            for (int j = i - gap;
+                 j >= 0 && comp(&v[j], &v[i]) < 0;
+                 j -= gap) {
+                g_swap(v, j, i, size);
+            }
+        }
+    }
 }
