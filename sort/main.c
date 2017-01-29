@@ -11,6 +11,13 @@
 //#define SORT g_bubble_sort
 #define SORT g_heap_sort
 
+struct person {
+    char* name;
+    int ID;
+};
+typedef struct person person_t;
+
+
 static int icomp(void *a, void *b)
 {
     int a_v = *((int*)a);

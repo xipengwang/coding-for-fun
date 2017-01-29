@@ -11,12 +11,6 @@
 extern "C" {
 #endif
 
-    struct person {
-        char* name;
-        int ID;
-    };
-    typedef struct person person_t;
-
     void g_swap(void *v, int a, int b, size_t size);
     void g_qsort(void *v, int total_elements, size_t size, int (*comp)(void*, void*));
     void g_shell_sort(void *v, int total_elements, size_t size, int (*comp)(void*, void*));
