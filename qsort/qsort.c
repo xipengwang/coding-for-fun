@@ -48,10 +48,10 @@ void g_shell_sort(void *v, int n, size_t size, int (*comp)(void*, void*))
 {
     for(int gap = n/2; gap > 0; gap /= 2) {
         for(int i = gap; i < n; i++) {
-            for (int j = i - gap;
-                 j >= 0 && comp(&v[j], &v[i]) < 0;
-                 j -= gap) {
-                g_swap(v, j, i, size);
+            for (int j = i - gap; j >= 0; j -= gap) {
+                if(comp((char*)v+j*size,(char*)v+(j+gap)*size) < 0)
+                    break;
+                g_swap(v, j, j+gap, size);
             }
         }
     }

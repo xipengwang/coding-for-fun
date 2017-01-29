@@ -6,8 +6,8 @@
 
 #include "qsort.h"
 
-#define SORT g_qsort
-//#define SORT g_shell_sort
+//#define SORT g_qsort
+#define SORT g_shell_sort
 
 static int icomp(void *a, void *b)
 {
