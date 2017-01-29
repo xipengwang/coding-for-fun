@@ -32,7 +32,7 @@ struct TNAME
 };
 
 TTYPENAME_T* APPEND(create)(int (*comp)(TVALTYPE*, TVALTYPE*)){
-    TTYPENAME_T* root = calloc(1, sizeof(TTYPENAME_T));
+    TTYPENAME_T* root = (TTYPENAME_T*)calloc(1, sizeof(TTYPENAME_T));
     root->data = NULL;
     root->left_child = NULL;
     root->right_child = NULL;
@@ -44,7 +44,7 @@ void APPEND(add_node)(TTYPENAME_T *root, TVALTYPE *data)
 {
     assert(root != NULL);
     if(root->data == NULL) {
-        root->data = calloc(1, sizeof(TVALTYPE));
+        root->data = (TVALTYPE*)calloc(1, sizeof(TVALTYPE));
         memcpy(root->data, data, sizeof(TVALTYPE));
         root->cnt = 1;
         return;
@@ -53,8 +53,8 @@ void APPEND(add_node)(TTYPENAME_T *root, TVALTYPE *data)
     while(1) {
         if(root->comp(node->data, data) > 0) { //go left
             if(node->left_child == NULL) {
-                TTYPENAME_T* new_node = calloc(1, sizeof(TTYPENAME_T));
-                new_node->data = calloc(1, sizeof(TVALTYPE));
+                TTYPENAME_T* new_node = (TTYPENAME_T*)calloc(1, sizeof(TTYPENAME_T));
+                new_node->data = (TVALTYPE*)calloc(1, sizeof(TVALTYPE));
                 memcpy(new_node->data, data, sizeof(TVALTYPE));
                 new_node->left_child = NULL;
                 new_node->right_child = NULL;
@@ -69,8 +69,8 @@ void APPEND(add_node)(TTYPENAME_T *root, TVALTYPE *data)
             return;
         } else { //go right
             if(node->right_child == NULL) {
-                TTYPENAME_T* new_node = calloc(1, sizeof(TTYPENAME_T));
-                new_node->data = calloc(1, sizeof(TVALTYPE));
+                TTYPENAME_T* new_node = (TTYPENAME_T*)calloc(1, sizeof(TTYPENAME_T));
+                new_node->data = (TVALTYPE*)calloc(1, sizeof(TVALTYPE));
                 memcpy(new_node->data, data, sizeof(TVALTYPE));
                 new_node->left_child = NULL;
                 new_node->right_child = NULL;
