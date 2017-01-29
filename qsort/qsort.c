@@ -56,3 +56,15 @@ void g_shell_sort(void *v, int n, size_t size, int (*comp)(void*, void*))
         }
     }
 }
+
+void g_bubble_sort(void *v, int n, size_t size, int (*comp)(void*, void*))
+{
+    for(int i = 0; i < n; i++){
+        for(int j = n-1; j > i; j--) {
+            if(comp((char*)v+j*size,(char*)v+(j-1)*size) < 0)
+                g_swap(v, j, j-1, size);
+        }
+    }
+}
+
+//TODO:Heap sort and merge sort?
