@@ -21,6 +21,7 @@ extern "C" {
     void g_qsort(void *v, int total_elements, size_t size, int (*comp)(void*, void*));
     void g_shell_sort(void *v, int total_elements, size_t size, int (*comp)(void*, void*));
     void g_bubble_sort(void *v, int n, size_t size, int (*comp)(void*, void*));
+    void g_heap_sort(void *v, int n, size_t size, int (*comp)(void*, void*));
 
 #ifdef __cplusplus
 }

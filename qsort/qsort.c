@@ -67,4 +67,39 @@ void g_bubble_sort(void *v, int n, size_t size, int (*comp)(void*, void*))
     }
 }
 
-//TODO:Heap sort and merge sort?
+static void max_heapify(void *v, int n, int node_k, size_t size, int (*comp)(void*, void*))
+{
+    int l_child = node_k * 2 + 1;
+    int r_child = node_k * 2 + 2;
+    int largest_idx = node_k;
+
+    if(l_child < n &&
+       comp((char*)v + largest_idx*size, (char*)v + l_child*size) < 0)
+        largest_idx = l_child;
+
+    if(r_child < n &&
+       comp((char*)v + largest_idx*size, (char*)v + r_child*size) < 0)
+        largest_idx = r_child;
+
+    if(largest_idx == node_k)
+        return;
+
+    g_swap(v, largest_idx, node_k, size);
+    max_heapify(v, n, largest_idx, size, comp);
+}
+
+static void heap_build(void *v, int n, size_t size, int (*comp)(void*, void*))
+{
+    for(int i = n/2 - 1; i >= 0; i--) {
+        max_heapify(v, n, i, size, comp);
+    }
+}
+
+void g_heap_sort(void *v, int n, size_t size, int (*comp)(void*, void*))
+{
+    heap_build(v, n, size, comp);
+    for(int i = n - 1; i >= 0; i--) {
+        g_swap(v, 0, i, size);
+        max_heapify(v, i, 0, size, comp);
+    }
+}

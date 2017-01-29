@@ -8,7 +8,8 @@
 
 //#define SORT g_qsort
 //#define SORT g_shell_sort
-#define SORT g_bubble_sort
+//#define SORT g_bubble_sort
+#define SORT g_heap_sort
 
 static int icomp(void *a, void *b)
 {
