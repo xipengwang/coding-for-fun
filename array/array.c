@@ -32,9 +32,44 @@ int garray_get(garray_t *garray, int idx, void* elem)
     if(idx >= garray->used)
         return 0;
 
+    if(elem == NULL)
+        return 0;
+
     memcpy((char*)elem,
            (char*)garray->buf + idx*garray->el_sz,
            garray->el_sz);
+    return 1;
+}
+
+int garray_pop(garray_t *garray, void* elem)
+{
+    if(garray->used == 0)
+        return 0;
+    garray->used--;
+    if(elem != NULL)
+        memcpy((char*)elem,
+               (char*)garray->buf + (garray->used)*garray->el_sz,
+               garray->el_sz);
+    return 1;
+}
+
+int garray_remove(garray_t *garray, int idx, void* elem)
+{
+    if(idx >= garray->used)
+        return 0;
+
+    if(elem != NULL)
+        memcpy((char*)elem,
+               (char*)garray->buf + idx*garray->el_sz,
+               garray->el_sz);
+
+    garray->used--;
+    if(idx == garray->used)
+        return 1;
+
+    memmove((char*)garray->buf + idx*garray->el_sz,
+            (char*)garray->buf + (idx+1)*garray->el_sz,
+            (garray->used - idx)*garray->el_sz);
     return 1;
 }
 

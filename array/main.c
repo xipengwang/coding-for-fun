@@ -29,11 +29,11 @@ int main(int argc, char** argv)
         for(int i = 0; i < n; i++) {
             garray_add(garray, &s[i]);
         }
-        for(int i = 0; i < n; i++) {
-            char* msg;
-            garray_get(garray, i, &msg);
-            printf("%s\n", msg);
-        }
+        /* for(int i = 0; i < n; i++) { */
+        /*     char* msg; */
+        /*     if(garray_get(garray, i, &msg)) */
+        /*         printf("%s\n", msg); */
+        /* } */
         garray_destroy(garray);
     }
     person_t persons[4]={
@@ -48,10 +48,12 @@ int main(int argc, char** argv)
         for(int i = 0; i < n; i++) {
             garray_add(garray, &persons[i]);
         }
+        garray_remove(garray, 1, NULL);
+        garray_pop(garray, NULL);
         for(int i = 0; i < n; i++) {
             person_t dup_persons;
-            garray_get(garray, i, &dup_persons);
-            printf("%s: %d\n", dup_persons.name, dup_persons.ID);
+            if(garray_get(garray, i, &dup_persons))
+                printf("%s: %d\n", dup_persons.name, dup_persons.ID);
         }
         garray_destroy(garray);
     }

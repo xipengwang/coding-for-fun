@@ -24,6 +24,8 @@ extern "C" {
     garray_t* garray_create(size_t el_sz);
     int garray_add(garray_t *garray, void* elem);
     int garray_get(garray_t *garray, int idx, void* elem);
+    int garray_pop(garray_t *garray, void* elem);
+    int garray_remove(garray_t *garray, int idx, void* elem);
     void garray_destroy(garray_t *garray);
 
 #ifdef __cplusplus
