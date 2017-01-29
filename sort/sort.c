@@ -1,4 +1,4 @@
-#include "qsort.h"
+#include "sort.h"
 
 
 void g_swap(void *v, int a, int b, size_t size)

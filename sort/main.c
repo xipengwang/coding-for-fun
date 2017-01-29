@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <string.h>
 
-#include "qsort.h"
+#include "sort.h"
 
 //#define SORT g_qsort
 //#define SORT g_shell_sort

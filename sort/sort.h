@@ -1,5 +1,5 @@
-#ifndef _QSORT_H
-#define _QSORT_H
+#ifndef _COMMON_SORT_H
+#define _COMMON_SORT_H
 
 #include <stdlib.h>
 #include <stdio.h>
