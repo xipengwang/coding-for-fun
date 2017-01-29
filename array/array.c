@@ -75,6 +75,9 @@ int garray_remove(garray_t *garray, int idx, void* elem)
 
 void garray_destroy(garray_t *garray)
 {
+    if(garray == NULL)
+        return;
+
     free(garray->buf);
     free(garray);
 }
