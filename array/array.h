@@ -27,6 +27,8 @@ extern "C" {
     int garray_pop(garray_t *garray, void* elem);
     int garray_remove(garray_t *garray, int idx, void* elem);
     void garray_destroy(garray_t *garray);
+    void garray_map(garray_t *garray, void (*f)(void*));
+    void garray_sort(garray_t *garray, int (*comp)(const void*, const void*));
 
 #ifdef __cplusplus
 }

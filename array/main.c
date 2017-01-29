@@ -11,6 +11,25 @@ struct person {
 };
 typedef struct person person_t;
 
+void print_strings(void *s) {
+    char** p = (char**)s;
+    printf("%s\n", *p);
+}
+
+void print_persons(void *person) {
+    person_t* p = (person_t*)person;
+    printf("%s:%d\n", p->name, p->ID);
+}
+
+
+static int scomp(const void *a, const void *b)
+{
+    char **a_s = (char**)a;
+    char **b_s = (char**)b;
+    //printf("%s:\n", *a_s,*b_s);
+    return strcmp(*a_s, *b_s);
+}
+
 int main(int argc, char** argv)
 {
     int v[] = {1,4,3,2,5};
@@ -29,11 +48,13 @@ int main(int argc, char** argv)
         for(int i = 0; i < n; i++) {
             garray_add(garray, &s[i]);
         }
+        garray_sort(garray, scomp);
         /* for(int i = 0; i < n; i++) { */
         /*     char* msg; */
         /*     if(garray_get(garray, i, &msg)) */
         /*         printf("%s\n", msg); */
         /* } */
+        garray_map(garray, print_strings);
         garray_destroy(garray);
     }
     person_t persons[4]={
@@ -48,13 +69,15 @@ int main(int argc, char** argv)
         for(int i = 0; i < n; i++) {
             garray_add(garray, &persons[i]);
         }
+
         garray_remove(garray, 1, NULL);
         garray_pop(garray, NULL);
-        for(int i = 0; i < n; i++) {
-            person_t dup_persons;
-            if(garray_get(garray, i, &dup_persons))
-                printf("%s: %d\n", dup_persons.name, dup_persons.ID);
-        }
+        /* for(int i = 0; i < n; i++) { */
+        /*     person_t dup_persons; */
+        /*     if(garray_get(garray, i, &dup_persons)) */
+        /*         printf("%s: %d\n", dup_persons.name, dup_persons.ID); */
+        /* } */
+        garray_map(garray, print_persons);
         garray_destroy(garray);
     }
     printf(("\n"));

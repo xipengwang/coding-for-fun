@@ -78,3 +78,15 @@ void garray_destroy(garray_t *garray)
     free(garray->buf);
     free(garray);
 }
+
+void garray_map(garray_t *garray, void (*f)(void*))
+{
+    for(int i = 0; i < garray->used; i++) {
+        f((char*)garray->buf + i*garray->el_sz);
+    }
+}
+
+void garray_sort(garray_t *garray, int (*comp)(const void*, const void*))
+{
+    qsort(garray->buf, garray->used, garray->el_sz, comp);
+}
