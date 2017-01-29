@@ -28,7 +28,7 @@ void g_qsort(void *v, int left, int right, size_t size, int (*comp)(void*, void*
 }
 */
 
-void g_qsort(void *v, int n, size_t size, int (*comp)(void*, void*))
+void g_qsort(void *v, int n, size_t size, int (*comp)(const void*, const void*))
 {
 
     if(n <= 0)
@@ -44,7 +44,7 @@ void g_qsort(void *v, int n, size_t size, int (*comp)(void*, void*))
     g_qsort((void*)((char*)v+(last+1)*size), n - last -1,size, comp);
 }
 
-void g_shell_sort(void *v, int n, size_t size, int (*comp)(void*, void*))
+void g_shell_sort(void *v, int n, size_t size, int (*comp)(const void*, const void*))
 {
     for(int gap = n/2; gap > 0; gap /= 2) {
         for(int i = gap; i < n; i++) {
@@ -57,7 +57,7 @@ void g_shell_sort(void *v, int n, size_t size, int (*comp)(void*, void*))
     }
 }
 
-void g_bubble_sort(void *v, int n, size_t size, int (*comp)(void*, void*))
+void g_bubble_sort(void *v, int n, size_t size, int (*comp)(const void*, const void*))
 {
     for(int i = 0; i < n; i++){
         for(int j = n-1; j > i; j--) {
@@ -67,7 +67,7 @@ void g_bubble_sort(void *v, int n, size_t size, int (*comp)(void*, void*))
     }
 }
 
-static void max_heapify(void *v, int n, int node_k, size_t size, int (*comp)(void*, void*))
+static void max_heapify(void *v, int n, int node_k, size_t size, int (*comp)(const void*, const void*))
 {
     int l_child = node_k * 2 + 1;
     int r_child = node_k * 2 + 2;
@@ -88,14 +88,14 @@ static void max_heapify(void *v, int n, int node_k, size_t size, int (*comp)(voi
     max_heapify(v, n, largest_idx, size, comp);
 }
 
-static void heap_build(void *v, int n, size_t size, int (*comp)(void*, void*))
+static void heap_build(void *v, int n, size_t size, int (*comp)(const void*, const void*))
 {
     for(int i = n/2 - 1; i >= 0; i--) {
         max_heapify(v, n, i, size, comp);
     }
 }
 
-void g_heap_sort(void *v, int n, size_t size, int (*comp)(void*, void*))
+void g_heap_sort(void *v, int n, size_t size, int (*comp)(const void*, const void*))
 {
     heap_build(v, n, size, comp);
     for(int i = n - 1; i >= 0; i--) {

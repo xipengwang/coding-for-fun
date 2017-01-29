@@ -18,7 +18,7 @@ struct person {
 typedef struct person person_t;
 
 
-static int icomp(void *a, void *b)
+static int icomp(const void *a, const void *b)
 {
     int a_v = *((int*)a);
     int b_v = *((int*)b);
@@ -30,7 +30,7 @@ static int icomp(void *a, void *b)
         return 1;
 }
 
-static int scomp(void *a, void *b)
+static int scomp(const void *a, const void *b)
 {
     char **a_s = (char**)a;
     char **b_s = (char**)b;
@@ -38,7 +38,7 @@ static int scomp(void *a, void *b)
     return strcmp(*a_s, *b_s);
 }
 
-static int person_comp(void *a, void *b)
+static int person_comp(const void *a, const void *b)
 {
     person_t *a_p = (person_t*)a;
     person_t *b_p = (person_t*)b;
