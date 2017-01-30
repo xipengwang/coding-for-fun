@@ -2,7 +2,7 @@
 
 garray_t* garray_create(size_t el_sz)
 {
-    garray_t *garray = calloc(1, sizeof(garray_t));
+    garray_t *garray = (garray_t*)calloc(1, sizeof(garray_t));
     garray->buf = (char*)calloc(DEFAULT_GARRAY_CAPACITY, el_sz);
     if(garray->buf == NULL)
         return NULL;
