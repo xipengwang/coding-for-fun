@@ -33,6 +33,9 @@ extern "C" {
                           int equals(const void*, const void*));
 
 
+    void ghash_destroy(ghash_t *ghash);
+    int ghash_put(ghash_t *ghash, void *key, void *value, void *old_key, void *old_value);
+
     uint32_t zhash_uint32_hash(const void *_a);
     int zhash_uint32_equals(const void *_a, const void *_b);
     uint32_t zhash_uint64_hash(const void *_a);
