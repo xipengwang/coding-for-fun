@@ -111,6 +111,7 @@ int ghash_get(ghash_t *ghash, void *key, void *out_value)
     uint32_t idx = hash_value & ghash->capacity;
     while(ghash->buf[idx*ghash->entry_sz]) {
         void *this_key = &ghash->buf[idx*ghash->entry_sz+1];
+        void *this_value = &ghash->buf[idx*ghash->entry_sz+1+ghash->key_sz];
         if(ghash->equals(key, this_key)) { //find same key entry
             memcpy(out_value, this_value, ghash->value_sz);
             return 1;
