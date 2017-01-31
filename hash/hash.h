@@ -36,14 +36,14 @@ extern "C" {
     void ghash_destroy(ghash_t *ghash);
     int ghash_put(ghash_t *ghash, void *key, void *value, void *old_key, void *old_value);
     int ghash_get(ghash_t *ghash, void *key, void *out_value);
-    uint32_t zhash_uint32_hash(const void *_a);
-    int zhash_uint32_equals(const void *_a, const void *_b);
-    uint32_t zhash_uint64_hash(const void *_a);
-    int zhash_uint64_equals(const void *_a, const void *_b);
-    uint32_t zhash_ptr_hash(const void *_a);
-    int zhash_ptr_equals(const void *_a, const void *_b);
-    int zhash_str_equals(const void *_a, const void *_b);
-    uint32_t zhash_str_hash(const void *_a);
+    uint32_t ghash_uint32_hash(const void *_a);
+    int ghash_uint32_equals(const void *_a, const void *_b);
+    uint32_t ghash_uint64_hash(const void *_a);
+    int ghash_uint64_equals(const void *_a, const void *_b);
+    uint32_t ghash_ptr_hash(const void *_a);
+    int ghash_ptr_equals(const void *_a, const void *_b);
+    int ghash_str_equals(const void *_a, const void *_b);
+    uint32_t ghash_str_hash(const void *_a);
 
 #ifdef __cplusplus
 }

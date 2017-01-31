@@ -34,6 +34,7 @@ int main(int argc, char** argv)
 {
     int v[] = {1,4,3,2,5};
     int n = sizeof(v)/sizeof(int);
+    ghash_t *ghash = ghash_create(sizeof(uint32_t), sizeof(char*), ghash_uint32_hash, ghash_uint32_equals);
     char *s[] = {
         "Hello_World",
         "Hello_UofM",
@@ -43,6 +44,16 @@ int main(int argc, char** argv)
         "d"
     };
     n = sizeof(s)/sizeof(char*);
+    for(int i = 0; i < n; i++) {
+        ghash_put(ghash, &i, &s[i], NULL, NULL);
+    }
+    for(int i = 0; i < n; i++) {
+        char *s;
+        ghash_put(ghash, &i, &s, NULL, NULL);
+        printf("%s \n", s);
+    }
+    ghash_destroy(ghash);
+
     person_t persons[4]={
         {"Jonh", 3},
         {"Mary", 2},

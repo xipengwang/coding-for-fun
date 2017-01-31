@@ -124,14 +124,14 @@ int ghash_get(ghash_t *ghash, void *key, void *out_value)
 /**
    Some general hash functions
 */
-uint32_t zhash_uint32_hash(const void *_a)
+uint32_t ghash_uint32_hash(const void *_a)
 {
     assert(_a != NULL);
 
     uint32_t a = *((uint32_t*) _a);
     return a;
 }
-int zhash_uint32_equals(const void *_a, const void *_b)
+int ghash_uint32_equals(const void *_a, const void *_b)
 {
     assert(_a != NULL);
     assert(_b != NULL);
@@ -142,14 +142,14 @@ int zhash_uint32_equals(const void *_a, const void *_b)
     return a==b;
 }
 
-uint32_t zhash_uint64_hash(const void *_a)
+uint32_t ghash_uint64_hash(const void *_a)
 {
     assert(_a != NULL);
 
     uint64_t a = *((uint64_t*) _a);
     return (uint32_t) (a ^ (a >> 32));
 }
-int zhash_uint64_equals(const void *_a, const void *_b)
+int ghash_uint64_equals(const void *_a, const void *_b)
 {
     assert(_a != NULL);
     assert(_b != NULL);
@@ -165,7 +165,7 @@ union uintpointer
     const void *p;
     uint32_t i;
 };
-uint32_t zhash_ptr_hash(const void *_a)
+uint32_t ghash_ptr_hash(const void *_a)
 {
     assert(_a != NULL);
 
@@ -178,7 +178,7 @@ uint32_t zhash_ptr_hash(const void *_a)
 
     return hash;
 }
-int zhash_ptr_equals(const void *_a, const void *_b)
+int ghash_ptr_equals(const void *_a, const void *_b)
 {
     assert(_a != NULL);
     assert(_b != NULL);
@@ -188,7 +188,7 @@ int zhash_ptr_equals(const void *_a, const void *_b)
     return  a == b;
 }
 
-uint32_t zhash_str_hash(const void *_a)
+uint32_t ghash_str_hash(const void *_a)
 {
     assert(_a != NULL);
 
@@ -203,7 +203,7 @@ uint32_t zhash_str_hash(const void *_a)
 
     return (uint32_t) hash;
 }
-int zhash_str_equals(const void *_a, const void *_b)
+int ghash_str_equals(const void *_a, const void *_b)
 {
     assert(_a != NULL);
     assert(_b != NULL);
