@@ -49,7 +49,7 @@ int main(int argc, char** argv)
     }
     for(int i = 0; i < n; i++) {
         char *s;
-        ghash_put(ghash, &i, &s, NULL, NULL);
+        ghash_get(ghash, &i, &s);
         printf("%s \n", s);
     }
     ghash_destroy(ghash);
