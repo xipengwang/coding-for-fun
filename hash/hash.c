@@ -5,6 +5,8 @@ ghash_t* ghash_create(size_t key_sz, size_t value_sz,
                       int equals(const void*, const void*))
 {
     ghash_t *ghash = (ghash_t*)calloc(1, sizeof(ghash_t));
+    if(!ghash)
+        return NULL;
     ghash->key_sz = key_sz;
     ghash->value_sz = value_sz;
     ghash->entry_sz = 1 + key_sz + value_sz; //first byte used as indicator.
@@ -26,6 +28,8 @@ ghash_t* ghash_create_capacity(size_t key_sz, size_t value_sz,
                                int _size)
 {
     ghash_t *ghash = (ghash_t*)calloc(1, sizeof(ghash_t));
+    if(!ghash)
+        return NULL;
     ghash->key_sz = key_sz;
     ghash->value_sz = value_sz;
     ghash->entry_sz = 1 + key_sz + value_sz; //first byte used as indicator.
@@ -121,12 +125,49 @@ int ghash_get(ghash_t *ghash, void *key, void *out_value)
         void *this_key = &ghash->buf[idx*ghash->entry_sz+1];
         void *this_value = &ghash->buf[idx*ghash->entry_sz+1+ghash->key_sz];
         if(ghash->equals(key, this_key)) { //find same key entry
-            memcpy(out_value, this_value, ghash->value_sz);
+            if(out_value)
+                memcpy(out_value, this_value, ghash->value_sz);
             return 1;
         }
         idx = (idx + 1) & (ghash->capacity - 1);
     }
     return 0;
+}
+
+ghash_iter_t *ghash_iter_create(ghash_t *ghash)
+{
+    ghash_iter_t *ghash_iter = (ghash_iter_t*)calloc(1, sizeof(ghash_iter_t));
+    if(!ghash_iter)
+        return NULL;
+    ghash_iter->ghash = ghash;
+    return ghash_iter;
+}
+
+int ghash_iter_next(ghash_iter_t *ghash_iter, void *key, void *value)
+{
+    const ghash_t *ghash = ghash_iter->ghash;
+    if(ghash_iter->last_entry_idx >= ghash->capacity)
+        return 0;
+
+    for(int i = ghash_iter->last_entry_idx; i < ghash->capacity; i++) {
+        if(ghash->buf[i * ghash->entry_sz]){
+            void *this_key = &ghash->buf[i * ghash->entry_sz + 1];
+            void *this_value = &ghash->buf[i * ghash->entry_sz + 1 + ghash->key_sz];
+            if(key)
+                memcpy(key, this_key, ghash->key_sz);
+            if(value)
+                memcpy(value, this_value, ghash->value_sz);
+            break;
+        }
+        ghash_iter->last_entry_idx++;
+    }
+    return 1;
+}
+
+void ghash_iter_destroy(ghash_iter_t *ghash_iter)
+{
+    if(ghash_iter)
+        free(ghash_iter);
 }
 
 /**

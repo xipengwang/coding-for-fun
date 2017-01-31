@@ -28,6 +28,14 @@ extern "C" {
     };
     typedef struct ghash ghash_t;
 
+
+    struct ghash_iter {
+        const ghash_t *ghash;
+        int last_entry_idx;
+    };
+    typedef struct ghash_iter ghash_iter_t;
+
+
     ghash_t* ghash_create(size_t key_sz, size_t value_sz,
                           uint32_t hash(const void*),
                           int equals(const void*, const void*));
@@ -36,6 +44,11 @@ extern "C" {
     void ghash_destroy(ghash_t *ghash);
     int ghash_put(ghash_t *ghash, void *key, void *value, void *old_key, void *old_value);
     int ghash_get(ghash_t *ghash, void *key, void *out_value);
+
+    ghash_iter_t *ghash_iter_create(ghash_t *ghash);
+    int ghash_iter_next(ghash_iter_t *ghash_iter, void *key, void *value);
+    void ghash_iter_destroy(ghash_iter_t *ghash_iter);
+
     uint32_t ghash_uint32_hash(const void *_a);
     int ghash_uint32_equals(const void *_a, const void *_b);
     uint32_t ghash_uint64_hash(const void *_a);
