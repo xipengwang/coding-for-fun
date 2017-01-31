@@ -150,6 +150,7 @@ int ghash_iter_next(ghash_iter_t *ghash_iter, void *key, void *value)
         return 0;
 
     for(int i = ghash_iter->last_entry_idx; i < ghash->capacity; i++) {
+        ghash_iter->last_entry_idx++;
         if(ghash->buf[i * ghash->entry_sz]){
             void *this_key = &ghash->buf[i * ghash->entry_sz + 1];
             void *this_value = &ghash->buf[i * ghash->entry_sz + 1 + ghash->key_sz];
@@ -159,7 +160,6 @@ int ghash_iter_next(ghash_iter_t *ghash_iter, void *key, void *value)
                 memcpy(value, this_value, ghash->value_sz);
             break;
         }
-        ghash_iter->last_entry_idx++;
     }
     return 1;
 }
