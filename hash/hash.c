@@ -158,10 +158,10 @@ int ghash_iter_next(ghash_iter_t *ghash_iter, void *key, void *value)
                 memcpy(key, this_key, ghash->key_sz);
             if(value)
                 memcpy(value, this_value, ghash->value_sz);
-            break;
+            return 1;
         }
     }
-    return 1;
+    return 0;
 }
 
 void ghash_iter_destroy(ghash_iter_t *ghash_iter)
