@@ -8,7 +8,7 @@
 #include <string.h>
 
 #define GHASH_FACTOR 2
-#define DEFAULT_GHASH_CAPACITY 16
+#define DEFAULT_GHASH_CAPACITY 8
 
 #ifdef __cplusplus
 extern "C" {

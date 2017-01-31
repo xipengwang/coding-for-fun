@@ -104,7 +104,7 @@ int ghash_put(ghash_t *ghash, void *key, void *value, void *old_key, void *old_v
         }
 
         ghash_t tmp;
-        memcpy(&tmp, new_ghash, sizeof(ghash_t));
+        memcpy(&tmp, ghash, sizeof(ghash_t));
         memcpy(ghash, new_ghash, sizeof(ghash_t));
         memcpy(new_ghash, &tmp, sizeof(ghash_t));
         ghash_destroy(new_ghash);
